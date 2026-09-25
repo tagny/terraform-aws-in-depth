@@ -10,13 +10,13 @@ data "aws_subnets" "default" {
 }
 
 module "test_instance" {
-  source      = "../"
-  name_prefix = "test_instance"
-  tags        = { "author" : "Terraform AWS in depth" }
-  count       = 5
-  subnet_id   = data.aws_subnets.default.ids[0]
+  source         = "../"
+  name_prefix    = "test_instance"
+  tags           = { "author" : "Terraform AWS in depth" }
+  instance_count = 5
+  subnet_id      = data.aws_subnets.default.ids[0]
 }
 
-output "aws_instance_arn" {
-  value = module.test_instance.aws_instance_arn
+output "aws_instance_arns" {
+  value = module.test_instance.aws_instance_arns
 }
