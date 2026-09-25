@@ -1,0 +1,19 @@
+# .terraform-docs.yml
+content: |-
+
+  {{ .Header }}
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  ## Example
+
+  ```hcl
+  {{ include "example/providers.tf" }}
+  {{ include "example/main.tf" }}
+  ```
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}  

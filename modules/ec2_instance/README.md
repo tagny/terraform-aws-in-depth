@@ -1,0 +1,71 @@
+
+
+
+## Requirements
+
+| Name | Version |
+| ---- | ------- |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+
+## Providers
+
+| Name | Version |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
+
+## Example
+
+```hcl
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+variable "region" {
+  type        = string
+  default     = "us-east-1"
+  description = "The AWS Region to connect and run the tests in."
+}
+
+provider "aws" {
+  region = var.region
+}
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
+module "test_instance" {
+  source = "../"
+  subnet_id = data.aws_subnets.default.ids[0]
+}
+
+output "aws_instance_arn" {
+  value = module.test_instance.aws_instance_arn
+}
+```
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+| ---- | ----------- | ---- | ------- | :------: |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of the instance to launch | `string` | `"t3.micro"` | no |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the Subnet to launch the instance into. | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+| ---- | ----------- |
+| <a name="output_aws_instance"></a> [aws\_instance](#output\_aws\_instance) | The entire instance resource. |
+| <a name="output_aws_instance_arn"></a> [aws\_instance\_arn](#output\_aws\_instance\_arn) | The AWS Resource Name for the instance. |
+| <a name="output_aws_instance_ip"></a> [aws\_instance\_ip](#output\_aws\_instance\_ip) | The IP Address for the private network interface on the instance. |  
