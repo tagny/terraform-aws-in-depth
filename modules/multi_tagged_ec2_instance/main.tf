@@ -19,6 +19,6 @@ resource "aws_instance" "hello_world" {
   instance_type = var.instance_type
 
   tags = merge(var.tags, {
-    name = "${var.name_prefix}-${count.index}"
+    Name = "${var.name_prefix}-${count.index}"
   })
 }
