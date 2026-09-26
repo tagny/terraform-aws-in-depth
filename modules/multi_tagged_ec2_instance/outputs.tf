@@ -10,3 +10,8 @@ output "aws_instances" {
   description = "The entire instance resources."
   value       = aws_instance.hello_world
 }
+
+output "aws_instance_role" {
+  description = "Now our role can be accessed by others, who can then attach their own policies to it."
+  value       = aws_iam_role.main
+}
