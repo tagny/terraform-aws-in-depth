@@ -39,3 +39,9 @@ variable "subnet_id" {
     error_message = "The subnet_id must match the pattern ^subnet-[\\d|\\w]+$"
   }
 }
+
+variable "enable_systems_manager" {
+  type        = bool
+  description = "When enabled the Systems Manager IAM Policy will be attached to the instance."
+  default     = false
+}
